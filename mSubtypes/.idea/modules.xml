@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mSubtypes.iml" filepath="$PROJECT_DIR$/mSubtypes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mSubtypes_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mSubtypes_main.iml" group="mSubtypes" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mSubtypes_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mSubtypes_test.iml" group="mSubtypes" />
+    </modules>
+  </component>
+</project>

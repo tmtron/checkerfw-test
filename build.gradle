@@ -1,0 +1,72 @@
+group 'com.tmtron.checkerfw'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        maven {
+            // for gradle-apt-plugin
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        /* gradle-apt-plugin
+         * this will make sure, that the generated java source files end up in
+         *   build/generated/source/apt/main/com/...
+         * (instead of: build/classes/...)
+         *
+         * in plain java-projects, also apply the idea plugin which will make sure that
+         * the Idea IDE also knows and handles all annotation processors on the classpath
+         *
+         * https://github.com/tbroyer/gradle-apt-plugin/releases
+         */
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.10"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: "net.ltgt.apt"
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+final subtypesPrj='mSubtypes'
+
+def buildTypesProject(String prjDir) {
+    final buildFile = new File(prjDir, 'build.gradle')
+    def tempTask = project.tasks.create(name: "subTypingCheckerBuildTypesProject", type: GradleBuild)
+    tempTask.buildFile = buildFile
+    tempTask.tasks = ['clean', 'build']
+    tempTask.execute()
+}
+
+buildTypesProject(subtypesPrj)
+
+final VERSION_CHECKER_FRAMEWORK='2.1.14'
+
+project.tasks.withType(JavaCompile).all {
+    if (!name.contains("Test")) {
+        aptOptions.processors += 'org.checkerframework.common.subtyping.SubtypingChecker'
+        aptOptions.processorArgs.put('quals',
+                'com.tmtron.checkerfw.IdDomainObject'
+                        +',com.tmtron.checkerfw.IdCustomer'
+                        +',com.tmtron.checkerfw.IdUser'
+                        +',com.tmtron.checkerfw.IdBottomType')
+    }
+}
+
+dependencies {
+    implementation "org.checkerframework:checker-qual:${VERSION_CHECKER_FRAMEWORK}"
+
+    // the jar file (including our sub-type annotations) must be on the class-path
+    implementation project.files("${subtypesPrj}/build/libs/mSubtypes.jar")
+
+    // the jar file (including our sub-type annotations) must be on the processor-path
+    apt project.files("${subtypesPrj}/build/libs/mSubtypes.jar")
+    apt "org.checkerframework:checker:${VERSION_CHECKER_FRAMEWORK}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
