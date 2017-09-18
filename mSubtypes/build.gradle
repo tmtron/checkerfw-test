@@ -9,7 +9,7 @@ apply plugin: 'java-library'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-final VERSION_CHECKER_FRAMEWORK = '2.1.14'
+final VERSION_CHECKER_FRAMEWORK = '2.2.0'
 
 dependencies {
     implementation "org.checkerframework:checker-qual:${VERSION_CHECKER_FRAMEWORK}"

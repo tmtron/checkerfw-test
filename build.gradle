@@ -33,7 +33,7 @@ repositories {
     mavenCentral()
 }
 
-final VERSION_CHECKER_FRAMEWORK = '2.1.14'
+final VERSION_CHECKER_FRAMEWORK = '2.2.0'
 final SUBTYPES_PROJECT_NAME = 'mSubtypes'
 
 /**
