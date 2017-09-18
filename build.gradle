@@ -33,9 +33,14 @@ repositories {
     mavenCentral()
 }
 
-final subtypesPrj='mSubtypes'
+final VERSION_CHECKER_FRAMEWORK = '2.1.14'
+final SUBTYPES_PROJECT_NAME = 'mSubtypes'
 
-def buildTypesProject(String prjDir) {
+/**
+ * will build the types project
+ * note: this calls clean/build - maybe build would be enough
+ */
+void buildTypesProject(String prjDir) {
     final buildFile = new File(prjDir, 'build.gradle')
     def tempTask = project.tasks.create(name: "subTypingCheckerBuildTypesProject", type: GradleBuild)
     tempTask.buildFile = buildFile
@@ -43,18 +48,19 @@ def buildTypesProject(String prjDir) {
     tempTask.execute()
 }
 
-buildTypesProject(subtypesPrj)
-
-final VERSION_CHECKER_FRAMEWORK='2.1.14'
+/* note: the subtypes project must be built before we start the compilation of the main project,
+ *       because the mSubtypes.jar file must already be on the processorpath
+ */
+buildTypesProject(SUBTYPES_PROJECT_NAME)
 
 project.tasks.withType(JavaCompile).all {
     if (!name.contains("Test")) {
         aptOptions.processors += 'org.checkerframework.common.subtyping.SubtypingChecker'
         aptOptions.processorArgs.put('quals',
                 'com.tmtron.checkerfw.IdDomainObject'
-                        +',com.tmtron.checkerfw.IdCustomer'
-                        +',com.tmtron.checkerfw.IdUser'
-                        +',com.tmtron.checkerfw.IdBottomType')
+                        + ',com.tmtron.checkerfw.IdCustomer'
+                        + ',com.tmtron.checkerfw.IdUser'
+                        + ',com.tmtron.checkerfw.IdBottomType')
     }
 }
 
@@ -62,10 +68,10 @@ dependencies {
     implementation "org.checkerframework:checker-qual:${VERSION_CHECKER_FRAMEWORK}"
 
     // the jar file (including our sub-type annotations) must be on the class-path
-    implementation project.files("${subtypesPrj}/build/libs/mSubtypes.jar")
+    implementation project.files("${SUBTYPES_PROJECT_NAME}/build/libs/mSubtypes.jar")
 
     // the jar file (including our sub-type annotations) must be on the processor-path
-    apt project.files("${subtypesPrj}/build/libs/mSubtypes.jar")
+    apt project.files("${SUBTYPES_PROJECT_NAME}/build/libs/mSubtypes.jar")
     apt "org.checkerframework:checker:${VERSION_CHECKER_FRAMEWORK}"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'

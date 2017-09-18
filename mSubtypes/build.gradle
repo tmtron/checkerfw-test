@@ -9,11 +9,7 @@ apply plugin: 'java-library'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-/* VERSION_CHECKER_FRAMEWORK is defined in gradle.properties
- * so that we can override it via a gradle command line parameter:
- * e.g. -PVERSION_CHECKER_FRAMEWORK=2.1.13
- */
-//System.out.println 'checker framework version: '+ VERSION_CHECKER_FRAMEWORK
+final VERSION_CHECKER_FRAMEWORK = '2.1.14'
 
 dependencies {
     implementation "org.checkerframework:checker-qual:${VERSION_CHECKER_FRAMEWORK}"
