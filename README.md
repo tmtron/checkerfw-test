@@ -9,9 +9,9 @@ It contains 2 gradle projects:
 ## Subtypes project
 The subtypes project contains our custom type definition annotations:
 
-* IdDomainObject is the top type
-* IdUser, IdCustomer are the custom types, we want to use in the main project
-* IdBottom is the bottom type
+* `IdDomainObject` is the top type
+* `IdUser`, `IdCustomer` are the custom types, we want to use in the main project
+* `IdBottom` is the bottom type
 
 ![Type Hierarchy](doc/checkerfw-subtyping.jpg)
 
