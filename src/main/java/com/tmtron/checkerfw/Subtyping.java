@@ -38,15 +38,30 @@ public class Subtyping {
 
     public void test() {
         Long along = 1L;
-        @IdUser Long userId;
+        @IdUser Long userId = toUserId(1);
         @IdCustomer Long customerId1 = toCustomerId(1);
         @IdCustomer Long customerId2;
 
         customerId2 = noop(customerId1);
         genericTest(customerId1);
 
+        new CustomerIdHolder().field = customerId1;
+        // the next line must not compile
+        // new CustomerIdHolder().field = userId;
+
         // when activated this fails with the expected message: required: @IdUser Long
         // userId = customerId;
+    }
+
+    static class GenericHolder<T> {
+        public T field;
+    }
+
+    static class CustomerIdHolder extends GenericHolder<@IdCustomer Long> {
+
+        public CustomerIdHolder() {
+            super();
+        }
     }
 
 }

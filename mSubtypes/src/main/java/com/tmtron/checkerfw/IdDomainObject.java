@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 @DefaultQualifierInHierarchy
 @SubtypeOf({})
-@DefaultFor({TypeUseLocation.LOWER_BOUND, TypeUseLocation.UPPER_BOUND})
+@DefaultFor(TypeUseLocation.UPPER_BOUND)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 public @interface IdDomainObject {
 }
