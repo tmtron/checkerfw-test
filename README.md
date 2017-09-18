@@ -1,5 +1,5 @@
 # Subtyping
-This repo contains a small test how to use the checker-framework [subtyping checker](https://checkerframework.org/).
+This repo contains a small test how to use the checker-framework [subtyping checker](https://checkerframework.org/manual/#subtyping-checker).
 
 It contains 2 gradle projects:
 
