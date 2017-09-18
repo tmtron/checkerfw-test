@@ -1,5 +1,7 @@
 package com.tmtron.checkerfw;
 
+import java.util.concurrent.Callable;
+
 public class Subtyping {
 
     @SuppressWarnings({"RedundantCast", "cast.unsafe"})
@@ -34,6 +36,40 @@ public class Subtyping {
 
     <T> T f() {
         return null;
+    }
+
+    // RxJava2 example
+    public static <T> GenericHolder<T> fromCallable(final Callable<? extends T> callable) {
+        GenericHolder<T> result = new GenericHolder<T>();
+        try {
+            result.field = callable.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void testFromCallable1() {
+        GenericHolder<@IdCustomer Long> tmp = fromCallable(new Callable<@IdCustomer Long>() {
+            @Override
+            public @IdCustomer Long call() throws Exception {
+                final @IdCustomer Long customerId = toCustomerId(1);
+                return customerId;
+            }
+        });
+    }
+
+    /* this FAILS with this error-message:
+     *
+     *        GenericHolder<@IdCustomer Long> tmp2 = fromCallable(() -> {
+     *   required: @IdDomainObject GenericHolder<@IdCustomer Long>
+     */
+    public void testFromCallable2() {
+        GenericHolder<@IdCustomer Long> tmp2 = fromCallable(() -> {
+                    final @IdCustomer Long customerId = toCustomerId(1);
+                    return customerId;
+                }
+        );
     }
 
     public void test() {
