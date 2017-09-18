@@ -3,10 +3,10 @@ package com.tmtron.checkerfw;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.tmtron.checkerfw.SubtypingTest.toCustomerId;
-import static com.tmtron.checkerfw.SubtypingTest.toUserId;
+import static com.tmtron.checkerfw.Subtyping.toCustomerId;
+import static com.tmtron.checkerfw.Subtyping.toUserId;
 
-public class SubtypingTestTest {
+public class SubtypingTest {
 
     @Test
     public void test() {

@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 @SubtypeOf({IdCustomer.class, IdDomainObject.class})
 @ImplicitFor(literals = {LiteralKind.NULL})
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
-public @interface IdBottomType {
+public @interface IdBottom {
 }

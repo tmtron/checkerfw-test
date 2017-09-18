@@ -1,6 +1,6 @@
 package com.tmtron.checkerfw;
 
-public class SubtypingTest {
+public class Subtyping {
 
     @SuppressWarnings({"RedundantCast", "cast.unsafe"})
     public static @IdCustomer long toCustomerId(long id) {

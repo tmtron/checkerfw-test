@@ -60,7 +60,7 @@ project.tasks.withType(JavaCompile).all {
                 'com.tmtron.checkerfw.IdDomainObject'
                         + ',com.tmtron.checkerfw.IdCustomer'
                         + ',com.tmtron.checkerfw.IdUser'
-                        + ',com.tmtron.checkerfw.IdBottomType')
+                        + ',com.tmtron.checkerfw.IdBottom')
     }
 }
 
